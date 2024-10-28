@@ -17,6 +17,13 @@ class PregnancyDependency(Member):
         return self.member.pregnant or False
 
 
+class ExpectedChildrenPregnancyDependency(Member):
+    field = "current_pregnancies"
+
+    def value(self):
+        return 1 if self.member.pregnant else 0
+
+
 class FullTimeCollegeStudentDependency(Member):
     field = "is_full_time_college_student"
 
@@ -80,6 +87,14 @@ class TaxUnitDependentDependency(Member):
 
 class WicCategory(Member):
     field = "wic_category"
+
+
+class MedicaidCategory(Member):
+    field = "medicaid_category"
+
+
+class MedicaidSeniorOrDisabled(Member):
+    field = "is_optional_senior_or_disabled_for_medicaid"
 
 
 class Wic(Member):

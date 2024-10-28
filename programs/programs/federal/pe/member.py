@@ -15,6 +15,7 @@ class Wic(PolicyEngineMembersCalculator):
     pe_name = "wic"
     pe_inputs = [
         dependency.member.PregnancyDependency,
+        dependency.member.ExpectedChildrenPregnancyDependency,
         dependency.member.AgeDependency,
         dependency.spm.SchoolMealCountableIncomeDependency,
     ]
@@ -33,11 +34,14 @@ class Medicaid(PolicyEngineMembersCalculator):
     pe_inputs = [
         dependency.member.AgeDependency,
         dependency.member.PregnancyDependency,
+        dependency.member.SsiCountableResourcesDependency,
         *dependency.irs_gross_income,
     ]
     pe_outputs = [
         dependency.member.AgeDependency,
         dependency.member.Medicaid,
+        dependency.member.MedicaidCategory,
+        dependency.member.MedicaidSeniorOrDisabled,
     ]
 
     child_medicaid_average = 0
