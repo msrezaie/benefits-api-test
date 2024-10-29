@@ -39,7 +39,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "benefits-api-test.onrender.com", "mfb-nc-test.netlify.app"]
 
 AUTH_USER_MODEL = "authentication.User"
 
@@ -132,16 +132,8 @@ WSGI_APPLICATION = "benefits.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASS"),
-        "HOST": config("DB_HOST", "localhost"),
-    }
+    "default": dj_database_url.parse(config("DB_URL"), conn_max_age=600)
 }
-
-DATABASES["default"] = dj_database_url.parse("postgresql://mfb_db_sp91_user:ETqMWfPdxrafrF0vc59TeURA3kNPvxzv@dpg-csgg671u0jms7390gp2g-a/mfb_db_sp91")
 
 
 # Password validation
