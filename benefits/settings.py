@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import django_heroku
 import os
 from decouple import config
-
+import dj_database_url
 from pathlib import Path
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -140,6 +140,8 @@ DATABASES = {
         "HOST": config("DB_HOST", "localhost"),
     }
 }
+
+DATABASES["default"] = dj_database_url.parse("postgresql://mfb_db_sp91_user:ETqMWfPdxrafrF0vc59TeURA3kNPvxzv@dpg-csgg671u0jms7390gp2g-a/mfb_db_sp91")
 
 
 # Password validation

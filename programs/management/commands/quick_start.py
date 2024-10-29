@@ -162,7 +162,7 @@ class Command(BaseCommand):
             new_nav = Navigator.objects.new_navigator(navigator, None)
             new_nav.external_name = navigator
             # give each navigator a random program
-            new_nav.program.add(random.choice(programs))
+            new_nav.programs.add(random.choice(programs))
             new_nav.save()
 
         # create urgent needs
