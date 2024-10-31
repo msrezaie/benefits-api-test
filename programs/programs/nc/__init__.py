@@ -5,5 +5,5 @@ from ..calc import ProgramCalculator
 
 nc_calculators: dict[str, type[ProgramCalculator]] = {
     "nc_aca": ACASubsidiesNC,
-    "em": EmergencyMedicaid,
+    "nc_emergency_medicaid": EmergencyMedicaid,
 }
