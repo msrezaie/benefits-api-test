@@ -8,7 +8,7 @@ class EmergencyMedicaid(ProgramCalculator):
     member_amount = 6268
     max_age = 64
     fpl_percent = 1.96
-    dependencies = ["age", "insurance", "income_amount", "household_size"]
+    dependencies = ["age", "insurance", "income_amount", "income_frequency", "household_size"]
 
     def household_eligible(self, e: Eligibility):
         # Does not have insurance
@@ -18,7 +18,7 @@ class EmergencyMedicaid(ProgramCalculator):
 
             # Pregnant and under 18 years old have a different FPL percentage
             if member.age <= 18 and member.pregnant:
-                EmergencyMedicaid.fpl_percent = 2.11
+                self.fpl_percent = 2.11
 
         e.condition(has_no_insurance, messages.has_no_insurance())
 
@@ -27,9 +27,7 @@ class EmergencyMedicaid(ProgramCalculator):
 
         # Income
         fpl = self.program.fpl
-        income_limit = int(
-            EmergencyMedicaid.fpl_percent * fpl.get_limit(self.screen.household_size)
-        )
+        income_limit = int(self.fpl_percent * fpl.get_limit(self.screen.household_size))
         gross_income = int(self.screen.calc_gross_income("yearly", ["all"]))
 
         e.condition(gross_income < income_limit, messages.income(gross_income, income_limit))
